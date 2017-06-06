@@ -8,6 +8,10 @@
   <artifactId>hql-lesson-starter</artifactId>
   <version>0.1</version>
 
+  <properties>
+    <hibernate.version>5.2.10.Final</hibernate.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -18,7 +22,7 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>5.2.10.Final</version>
+      <version>${hibernate.version}</version>
     </dependency>
 
     <dependency>
@@ -51,6 +55,12 @@
       <version>2.0.0.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -62,6 +72,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArgument>-proc:none</compilerArgument>
         </configuration>
       </plugin>
     </plugins>
