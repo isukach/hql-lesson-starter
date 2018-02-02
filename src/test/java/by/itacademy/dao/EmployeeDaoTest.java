@@ -3,6 +3,7 @@ package by.itacademy.dao;
 import by.itacademy.entity.Employee;
 import by.itacademy.entity.Payment;
 import by.itacademy.util.EmployeeTestDataImporter;
+import com.querydsl.core.Tuple;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -121,14 +122,14 @@ public class EmployeeDaoTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        List<Object[]> results = EmployeeDao
+        List<Tuple> results = EmployeeDao
                 .getInstance()
                 .findOrganizationNamesWithAvgEmployeePaymentsOrderedByOrgName(session);
         assertThat(results, hasSize(3));
-        List<String> orgNames = results.stream().map(a -> (String) a[0]).collect(toList());
+        List<String> orgNames = results.stream().map(r -> r.get(0, String.class)).collect(toList());
         assertThat(orgNames, contains("Apple", "Google", "Microsoft"));
 
-        List<Double> orgAvgPayments = results.stream().map(a -> (Double) a[1]).collect(toList());
+        List<Double> orgAvgPayments = results.stream().map(r -> r.get(1, Double.class)).collect(toList());
         assertThat(orgAvgPayments, contains(410.0d, 400.0d, 300.0d));
 
         session.getTransaction().commit();
@@ -140,13 +141,13 @@ public class EmployeeDaoTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        List<Object[]> results = EmployeeDao.getInstance().canYouDoIt(session);
+        List<Tuple> results = EmployeeDao.getInstance().canYouDoIt(session);
         assertThat(results, hasSize(2));
 
-        List<String> names = results.stream().map(r -> ((Employee) r[0]).fullName()).collect(toList());
+        List<String> names = results.stream().map(r -> r.get(0, Employee.class).fullName()).collect(toList());
         assertThat(names, contains("Sergey Brin", "Steve Jobs"));
 
-        List<Double> averagePayments = results.stream().map(r -> (Double) r[1]).collect(toList());
+        List<Double> averagePayments = results.stream().map(r -> r.get(1, Double.class)).collect(toList());
         assertThat(averagePayments, contains(500.0d, 450.0d));
 
         session.getTransaction().commit();

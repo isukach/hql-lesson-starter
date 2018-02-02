@@ -2,6 +2,7 @@ package by.itacademy.dao;
 
 import by.itacademy.entity.Employee;
 import by.itacademy.entity.Payment;
+import com.querydsl.core.Tuple;
 import org.hibernate.Session;
 
 import java.util.Collections;
@@ -74,7 +75,7 @@ public final class EmployeeDao {
     /**
      * Возвращает для каждой организации: название, среднюю зарплату всех её сотрудников. Организации упорядочены по названию.
      */
-    public List<Object[]> findOrganizationNamesWithAvgEmployeePaymentsOrderedByOrgName(Session session) {
+    public List<Tuple> findOrganizationNamesWithAvgEmployeePaymentsOrderedByOrgName(Session session) {
         return Collections.emptyList();
     }
 
@@ -83,7 +84,7 @@ public final class EmployeeDao {
      * больше среднего размера выплат всех сотрудников
      * Упорядочить по имени сотрудника
      */
-    public List<Object[]> canYouDoIt(Session session) {
+    public List<Tuple> canYouDoIt(Session session) {
         return Collections.emptyList();
     }
 }
